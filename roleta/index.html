@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style.css">
+
+    <style>
+        @font-face {
+            font-family: 'OktaNeue-Regular';
+            src: url('./assets/fonts/OktaNeue-Regular.woff');
+        }
+
+        @font-face {
+            font-family: 'OktaNeue-Heavy';
+            src: url('./assets/fonts/OktaNeue-Heavy.woff');
+        }
+
+        @font-face {
+            font-family: 'OktaNeue-Bold';
+            src: url('./assets/fonts/OktaNeue-Bold.woff');
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#14171C',
+                        primary: "#00E475",
+                        gray: "#393F4E",
+                        white: "#FAFBFC"
+                    }
+                },
+                fontFamily: {
+                    'regular': ['OktaNeue-Regular', 'sans-serif'],
+                    'heavy': ['OktaNeue-Heavy', 'sans-serif'],
+                    'bold': ['OktaNeue-Bold', 'sans-serif'],
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="w-full overflow-x-hidden text-white bg-background font-regular">
+    <header
+        class="fixed top-0 z-30 bg-[#00000070] w-full px-4 py-4 flex items-center justify-between border-b border-[#FFFFFF05] backdrop-blur-sm">
+        <div class="flex gap-4 items-center">
+            <img src="./assets/imagens/logoSBT.png" alt="" class="w-12 h-12">
+            <div class="font-bold leading-4 text-lg ">
+                <p>ROLETA</p>
+                <p>PREMIADA</p>
+            </div>
+        </div>
+        <div class="relative px-4 py-2 bg-gray rounded-md">
+            <p
+                class="absolute whitespace-nowrap text-[10px] leading-[10px] bg-primary text-gray py-[2px] px-1 rounded-xl font-bold top-[-7px] left-[-10px]">
+                saldo atual</p>
+            <p>R$ <span id="saldo">40</span>,00</p>
+        </div>
+    </header>
+    <main>
+        <div id="modalbonus"
+            class="fixed top-0 z-50 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center">
+            <!-- Modal Content -->
+            <article id="form1" class="flex mx-2 md:min-w-[500px] h-[250px] bg-gray rounded-xl overflow-hidden">
+                <div class="flex-1 relative hidden md:block">
+                    <img src="./assets/imagens/bonus.jpeg" class="w-full h-full object-cover" alt="">
+                </div>
+                <div class="flex-1 flex flex-col p-4 items-center justify-between">
+                    <h1 class="font-bold text-lg">
+                        Você ganhou <span class="text-primary">R$ 40,00</span>!
+                    </h1>
+                    <p>Gire a roleta para concorrer a prêmios!</p>
+
+                    <div class="w-full flex items-center justify-end">
+                        <button onclick="closeModal()"
+                            class="px-4 py-1 bg-primary text-background font-bold rounded-md w-full">Receber</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <section id="hero" class="w-full overflow-hidden h-[70vh] flex items-center justify-center relative">
+            <div class="w-full px-4 flex flex-col gap-8 justify-center items-center">
+                <p class="text-[32px] leading-[32px] font-heavy text-center md:text-5xl">PRIMEIRA ROLETA DO SBT ONDE
+                    VOCÊ GIRA E
+                    RESGATA O PRÊMIO SEM SAIR DE CASA!</p>
+                <div class="text-lg leading-[18px] whitespace-nowrap flex-wrap flex items-center justify-center gap-4">
+                    <button
+                        class="flex max-w-52 flex-1 items-center justify-center font-bold gap-3 px-6 py-3 bg-gray rounded-md">COMO
+                        FUNCIONA?</button>
+                    <a href="#roll">
+                        <button
+                            class="flex max-w-52 flex-1 items-center justify-center font-bold gap-3 px-6 py-3 bg-primary text-background rounded-md">IR
+                            AGORA <i class="ph ph-arrow-right"></i></button>
+                    </a>
+                </div>
+            </div>
+            <div
+                class="w-96 h-96 rounded-[100%] bg-primary absolute blur-3xl opacity-15 -z-10 -left-0 -translate-x-1/2 top-64">
+            </div>
+            <div
+                class="w-96 h-96 rounded-[100%] bg-primary absolute blur-3xl opacity-15 -z-10 -right-12 translate-x-1/2 -top-20">
+            </div>
+            <img src="./assets/imagens/iphone.png" alt="" srcset=""
+                class="w-96 absolute -z-10 opacity-15 rotate-[60deg] -left-0 -translate-x-1/2 top-64 md:w-[500px]">
+            <img src="./assets/imagens/macbook.png" alt="" srcset=""
+                class="w-96 absolute -z-10 opacity-15 -rotate-[25deg] -right-48 -top-20 md:w-[500px]">
+        </section>
+        <section class="w-full flex items-center justify-center px-4 mb-16">
+            <article
+                class="shadow-2xl shadow-[#00E47535] flex flex-col gap-8 text-lg items-center max-w-screen-sm justify-center text-center bg-gray px-4 py-8 rounded-3xl border-[5px] border-[#FFFFFF10] z-10">
+                <h1 class="font-bold text-3xl">COMO FUNCIONA?</h1>
+                <p>A Roleta Premiada foi ciada pelo Silvio Santos em 2009, e agora está disponível via internet pela
+                    equipe do SBT!</p>
+                <p id="roll">Cada giro custa <span class="font-bold text-primary">R$6,00</span> e você pode ganhar
+                    prêmios
+                    excluisos e receber <span class="font-bold text-primary">diretamente em casa.</span></p>
+            </article>
+        </section>
+
+        <section class="w-full flex flex-col gap-0">
+            <div id="roleta" class="border-t-[10px] border-primary relative overflow-hidden">
+                <!-- TRIANGLE -->
+                <div class="w-8 h-8 bg-primary absolute rotate-[45deg] -top-6 left-1/2 z-20 -translate-x-1/2"></div>
+                <div class="w-8 h-8 bg-primary absolute rotate-[45deg] -bottom-6 left-1/2 z-20 -translate-x-1/2"></div>
+
+                <div class="roulette-wrapper relative flex justify-center w-screen mx-auto my-0 overflow-hidden">
+                    <div class='w-[4px] bg-gray-400 left-1/2 h-full rounded-lg absolute z-[2]'></div>
+                    <div class='wheel flex'>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary w-full px-4 py-4 flex items-center justify-between">
+                <div class="text-base text-background flex items-center gap-2">
+                    <i class="text-2xl ph ph-warning-octagon"></i>
+                    <p class="leading-4">Cada giro custa <span class="font-bold">R$6,00</span></p>
+                </div>
+                <button class="text-primary bg-gray rounded-md px-8 py-2 girar">GIRAR</button>
+            </div>
+        </section>
+        <section class=" px-4 flex hidden flex-col gap-4 py-8" id="wins">
+            <h1 class="text-2xl text-primary"><i class="ph-duotone ph-trophy"></i> Prêmios ganhos!</h1>
+            <div class="flex flex-col">
+                <div class="flex gap-2 flex-wrap" id="ganhos">
+                </div>
+                <div class="flex items-center justify-center py-4">
+                    <button id="openModal"
+                        class="hover:bg-green-400 cursor-pointer px-8 py-2 bg-primary rounded-md font-bold text-background text-lg">RESGATAR</button>
+                </div>
+
+            </div>
+            <div id="modal"
+                class="fixed top-0 z-20 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center hidden">
+                <!-- Modal Content -->
+                <article id="form1" class="flex mx-2 md:min-w-[500px] h-[250px] bg-gray rounded-xl overflow-hidden">
+                    <div class="flex-1 relative hidden md:block">
+                        <img src="./assets/imagens/entrega.webp" class="w-full h-full object-cover" alt="">
+                    </div>
+                    <div class="flex-1 flex flex-col p-4 items-center justify-between">
+                        <h1 class="font-bold text-lg">
+                            Vamos fazer a entrega na sua porta
+                        </h1>
+
+                        <div>
+                            <label for="cep">Digite seu CEP</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000"
+                                class=" px-2 py-1 text-background w-full rounded-md">
+                        </div>
+
+                        <div class="w-full flex items-center justify-end">
+                            <button onclick="fetchCEP()"
+                                class="px-4 py-1 bg-primary text-background font-bold rounded-md">Proximo</button>
+                        </div>
+                    </div>
+                </article>
+                <article id="form2" class="flex mx-2 md:min-w-[500px] h-fit bg-gray rounded-xl overflow-hidden hidden">
+                    <div class="flex-1 flex flex-col gap-2 p-4 items-center justify-between">
+
+                        <div class="w-full">
+                            <label for="cep">CEP:</label>
+                            <input type="text" id="cep2" name="cep" placeholder="00000-000"
+                                class=" px-2 py-1 text-background w-full rounded-md">
+                        </div>
+                        <div class="w-full">
+                            <label for="cidade">Cidade:</label>
+                            <input type="text" id="cidade" name="cidade" placeholder=""
+                                class=" px-2 py-1 text-background w-full rounded-md">
+                        </div>
+                        <div class="w-full">
+                            <label for="bairro">Bairro:</label>
+                            <input type="text" id="bairro" name="bairro" placeholder=""
+                                class=" px-2 py-1 text-background w-full rounded-md">
+                        </div>
+
+                        <div class="w-full">
+                            <label for="rua">Rua:</label>
+                            <input type="text" id="rua" name="rua" placeholder=""
+                                class=" px-2 py-1 text-background w-full rounded-md">
+                        </div>
+
+                        <div class="w-full">
+                            <label for="numero">Número:</label>
+                            <input type="text" id="numero" name="numero" placeholder=""
+                                class=" px-2 py-1 text-background w-full rounded-md">
+                        </div>
+                        <br>
+
+                        <!-- TROCAR VALOR DO FRETE AQUI -->
+                        <p class="text-left w-full">Valor total do frete: <span
+                                class="text-primary font-bold ">R$18,00</span></p>
+
+                        <!-- TROCAR LINK DO CHECKOUT AQUI -->
+                        <a href="https://google.com">
+                            <button class="mt-2 px-4 py-1 bg-primary text-background font-bold rounded-md w-full">Pagar
+                                o frete</button>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+        <section class="px-4 py-16 flex flex-col gap-4">
+            <h1 class="text-2xl"><i class="ph ph-gift"></i> Premios disponíveis</h1>
+            <div class="w-full flex flex-wrap gap-2">
+                <div class="min-w-36 w-fit flex-1 bg-[#ffffff15] rounded-lg p-4 text-center gap-2">
+                    <img class="w-full" src="./assets/imagens/macbook.png" alt="" srcset="">
+                    <p>Macbook Pro 14" M2</p>
+                </div>
+                <div class="min-w-36 w-fit flex-1 bg-[#ffffff15] rounded-lg p-4 text-center gap-2">
+                    <img class="w-full" src="./assets/imagens/iphone.png" alt="" srcset="">
+                    <p>Iphone 15 Pro Max</p>
+                </div>
+                <div class="min-w-36 w-fit flex-1 bg-[#ffffff15] rounded-lg p-4 text-center gap-2">
+                    <img class="w-full" src="./assets/imagens/fogao.png" alt="" srcset="">
+                    <p>Fogão Atlas 4 Bocas</p>
+                </div>
+                <div class="min-w-36 w-fit flex-1 bg-[#ffffff15] rounded-lg p-4 text-center gap-2">
+                    <img class="w-full" src="./assets/imagens/cartao.png" alt="" srcset="">
+                    <p>Cartão de presente Americanas R$ 50,00</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        // JavaScript to handle modal toggle
+        const openModalButton = document.getElementById('openModal');
+        const modal = document.getElementById('modal');
+
+        openModalButton.addEventListener('click', () => {
+            modal.classList.toggle('hidden');
+        });
+    </script>®
+
+    <script>
+
+        function fetchCEP() {
+            // Get the value of the CEP input
+            const cepInput = document.getElementById('cep');
+            const cep = cepInput.value.replace(/\D/g, ''); // Remove non-numeric characters
+
+            // Make sure the CEP is valid
+            if (cep.length !== 8) {
+                alert('Por favor, digite um CEP válido com 8 dígitos.');
+                return;
+            }
+
+            // Fetch data from the ViaCEP API
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+
+                    // Populate the input fields with API data
+                    document.getElementById('cep2').value = data.cep;
+                    document.getElementById('cidade').value = data.localidade;
+                    document.getElementById('bairro').value = data.bairro;
+                    document.getElementById('rua').value = data.logradouro;
+
+                    document.getElementById("form1").classList.toggle('hidden')
+                    document.getElementById("form2").classList.toggle('hidden')
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error fetching data:', error);
+                    alert('Erro ao buscar dados. Por favor, tente novamente mais tarde.');
+                });
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function closeModal() {
+            const modalbonus = document.getElementById("modalbonus");
+            modalbonus.classList.toggle('hidden');
+        }
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        document.getElementById('cep').addEventListener('input', function (event) {
+            let inputValue = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+
+            if (inputValue.length > 5) {
+                inputValue = inputValue.substring(0, 5) + '-' + inputValue.substring(5, 8);
+            }
+
+            event.target.value = inputValue;
+        });
+
+        const saldoElem = document.getElementById("saldo");
+        let saldo = getCookie("saldo")
+        let stepCookie = getCookie("step")
+
+
+        if (!saldo) {
+            setCookie('saldo', 40, 3)
+            saldo = 40
+        }
+
+        saldoElem.innerHTML = saldo
+
+        const ganhos = document.getElementById("ganhos");
+
+        let step = stepCookie || 1;
+        let outcome = 0
+        var prizesArray = [
+            { image: './assets/imagens/triste.png', name: 'Não foi dessa vez...' },
+            { image: './assets/imagens/fogao.png', name: 'Fogão Atlas 4 Bocas' },
+            { image: './assets/imagens/triste.png', name: 'Não foi dessa vez...' },
+            { image: './assets/imagens/cartao.png', name: 'Cartão de presente americanas R$ 50,00' },
+            { image: './assets/imagens/tv.webp', name: 'Smart TV  Samsung 43" Crystal UHD 4K' },
+            { image: './assets/imagens/iphone.png', name: 'iphone 15 Pro Max 256gb' },
+            { image: './assets/imagens/triste.png', name: 'Não foi dessa vez...' },
+            { image: './assets/imagens/fogao.png', name: 'Fogão Atlas 4 Bocas' },
+            { image: './assets/imagens/triste.png', name: 'Não foi dessa vez...' },
+            { image: './assets/imagens/cartao.png', name: 'Cartão de presente Americanas R$ 50,00' },
+            { image: './assets/imagens/fogao.png', name: 'Fogão Atlas 4 Bocas' },
+            { image: './assets/imagens/tv.webp', name: 'Smart TV  Samsung 43" Crystal UHD 4K' },
+            { image: './assets/imagens/iphone.png', name: 'iphone 15 Pro Max 256gb' },
+            { image: './assets/imagens/triste.png', name: 'Não foi dessa vez...' },
+            { image: './assets/imagens/macbook.png', name: 'Macbook Pro M2' },
+            // Add more prize objects as needed
+        ];
+
+        const wins = document.getElementById("wins");
+
+        if (stepCookie >= 6) {
+            wins.classList.remove('hidden')
+            ganhos.innerHTML += `
+            <div id="prize" class="max-w-40 min-w-36 w-fit flex-1 bg-[#ffffff15] rounded-lg p-4 text-center gap-2">
+                        <img class="w-full" src="${prizesArray[5].image}" alt="" srcset="">
+                        <p>${prizesArray[5].name}</p>
+                    </div>
+            `
+        }
+
+        $(document).ready(function () {
+
+            //setup multiple rows of colours, can also add and remove while spinning but overall this is easier.
+            initWheel(prizesArray);
+
+            $('.girar').on('click', async function () {
+                let saldo = getCookie("saldo")
+
+                if (saldo < 6) {
+                    return alert('Saldo insuficiente.')
+                }
+
+                saldo = saldo - 6
+                setCookie('saldo', saldo, 3)
+                saldoElem.innerHTML = saldo
+
+                if (step == 1) {
+                    outcome = 8
+                    step++
+                    console.log(outcome)
+                    spinWheel(outcome);
+                    setCookie('step', 2, 3)
+                    return delay(6000)
+                }
+                if (step == 2) {
+                    outcome = 8
+                    step++
+                    console.log(outcome)
+                    spinWheel(outcome);
+                    setCookie('step', 3, 3)
+                    return delay(6000)
+                }
+                if (step == 3) {
+                    outcome = 6
+                    step++
+                    console.log(outcome)
+                    spinWheel(outcome);
+                    setCookie('step', 4, 3)
+                    return delay(6000)
+                }
+                if (step == 4) {
+                    outcome = 14
+                    step++
+                    console.log(outcome)
+                    spinWheel(outcome);
+                    setCookie('step', 5, 3)
+                    return delay(6000)
+                }
+                if (step == 5) {
+                    outcome = 10
+                    step++
+                    console.log(outcome)
+                    spinWheel(outcome);
+                    setCookie('step', 6, 3)
+                    return delay(6000)
+                }
+                if (step == 6) {
+                    outcome = 5
+                    step++
+                    console.log(outcome)
+                    spinWheel(outcome);
+                    setCookie('step', 7, 3)
+                    await delay(6000)
+                    wins.classList.remove('hidden')
+                    return showPrize(5)
+                }
+            });
+        });
+
+        const delay = (ms) => {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        const showPrize = (index) => {
+            ganhos.innerHTML += `
+            <div id="prize" class="max-w-40 min-w-36 w-fit flex-1 bg-[#ffffff15] rounded-lg p-4 text-center gap-2">
+                        <img class="w-full" src="${prizesArray[index].image}" alt="" srcset="">
+                        <p>${prizesArray[index].name}</p>
+                    </div>
+            `
+        }
+
+        function initWheel(prizes) {
+            var $wheel = $('.roulette-wrapper .wheel'),
+                row = "";
+
+            row += "<div class='row flex'>";
+
+            prizes.forEach(function (prize, index) {
+                row += "  <div aria-index='" + index + "' class='flex flex-col w-[250px] h-[350px] border-r-4 bg-gray border-[#00000025]'>";
+                row += "    <div class='w-[250px] h-[250px] p-4'>";
+                row += "      <img class='w-full h-full rounded-lg object-contain' src='" + prize.image + "' alt='" + prize.name + "' />";
+                row += "    </div>";
+                row += "    <div class='w-full text-center flex-1 flex items-center justify-center'>";
+                row += "      " + prize.name;
+                row += "    </div>";
+                row += "  </div>";
+            });
+
+
+            row += "</div>";
+
+            for (var x = 0; x < 29; x++) {
+                $wheel.append(row);
+            }
+        }
+
+        function spinWheel(roll) {
+            var $wheel = $('.roulette-wrapper .wheel'),
+                position = roll
+            $wheel.css('transform', 'translate3d(' + 0 + 'px, 0px, 0px)')
+
+            //determine position where to land
+            var rows = 12,
+                card = 250,
+                landingPosition = (rows * 15 * card) + (roll * card);
+
+            var object = { x: 0.02, y: 0.13 }
+
+            $wheel.css({
+                'transition-timing-function': 'cubic-bezier(0,' + object.x + ',' + object.y + ',1)',
+                'transition-duration': '6s',
+                'transform': 'translate3d(-' + landingPosition + 'px, 0px, 0px)'
+            });
+
+            setTimeout(function () {
+                $wheel.css({
+                    'transition-timing-function': '',
+                    'transition-duration': '',
+                });
+
+                var resetTo = -(position * card);
+                $wheel.css('transform', 'translate3d(' + resetTo + 'px, 0px, 0px)');
+            }, 6 * 1000);
+        }
+
+    </script>
+</body>
+
+</html>

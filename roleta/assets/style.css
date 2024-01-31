@@ -1,0 +1,12 @@
+@keyframes prize {
+    0% {
+        scale: 0;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+#prize {
+    animation: prize 750ms ease
+}

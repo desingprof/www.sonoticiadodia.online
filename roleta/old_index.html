@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="shortcut icon" href="./assets/imagens/logoSBT.png" type="image/x-icon">
+    <title>Roleta Premiada SBT</title>
+</head>
+
+<body class="text-center bg-stone-950 w-[100svw] relative flex flex-col gap-8 overflow-x-hidden">
+
+    <div id="modalFRETE"
+        class="hidden fixed top-0 left-0 w-full h-screen z-10 backdrop-blur-sm bg-[rgba(0,0,0,.5)] flex flex-col items-center justify-center">
+        <form onsubmit="calcularFrete(event)" id="freteForm"
+            class="p-4 py-8 bg-neutral-50 max-w-screen-sm flex flex-col rounded-md gap-4 w-full items-center justify-center">
+            <h1 class="text-xl font-bold mb-4">Resgate seus prêmios</h1>
+            <input type="text" maxlength="9" onkeyup="handleZipCode(event)" placeholder="Digite o seu CEP" name="CEP"
+                id="cepinput" class="w-full border rounded-md text-base px-2 py-2 max-w-64">
+            <div id="cepError"
+                class="hidden w-full border rounded-md text-base px-2 py-2 max-w-64 bg-red-600 text-white">
+                A
+            </div>
+            <button class="w-full bg-green-600 text-white rounded-md text-base px-2 py-2 max-w-64">Calcular
+                frete</button>
+        </form>
+
+        <article id="info"
+            class="hidden p-4 py-8 bg-neutral-50 max-w-screen-sm flex rounded-md gap-2 w-full items-start justify-center">
+
+            <div class="flex-1 flex flex-col items-start">
+                <p><b>Localidade:</b> <span id="localidade"></span></p>
+                <p><b>UF:</b> <span id="uf"></span></p>
+                <p><b>CEP:</b> <span id="cep"></span></p>
+                <p><b>Bairro:</b> <span id="bairro"></span></p>
+                <p><b>Rua:</b> <span id="rua"></span></p>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <input placeholder="Seu nome" type="text" class="w-full border rounded-md text-base px-2 py-2 max-w-64">
+                <input type="number" placeholder="Numero da casa"
+                    class="w-full border rounded-md text-base px-2 py-2 max-w-64">
+
+
+                <!-- VALOR DO "FRETE" AQUI -->
+                <p class="text-right">Sedex: <b class="text-green-600">R$ 15,00</b></p>
+
+                <!-- LINK DO CHECKOUT AQUI -->
+                <a href="https://google.com.br">
+                    <button
+                        class="w-full bg-green-600 text-white rounded-md text-base px-2 py-2 max-w-64">Pagar</button>
+                </a>    
+            </div>
+
+
+        </article>
+
+    </div>
+
+    <header class="py-4 bg-stone-800 px-6 text-right text-white">
+        <p>Saldo bonus para giro: <span class="font-bold text-green-600">R$<span id="saldo"></span>,00</span></p>
+    </header>
+    <main class="w-screen overflow-x-hidden flex flex-col gap-16 items-center justify-start">
+        <div class="flex flex-col gap-2 items-center justify-center">
+            <img src="./assets/imagens/logoSBT.png" alt="Logo" class="w-16">
+            <p class="leading-5 text-xl text-center font-bold text-white">ROLETA<br>PREMIADA</p>
+        </div>
+        <h1 class="text-white font-bold">Parabéns, você ganhou <span class="text-xl text-green-600">R$40,00</span>
+            em
+            giros grátis, comece agora!</h1>
+
+        <!-- ROLETA -->
+        <div class="flex flex-col gap-4 items-center">
+            <div class="roulette-wrapper relative flex justify-center w-screen mx-auto my-0 overflow-hidden">
+                <div class='w-[4px] bg-gray-400 left-1/2 h-full rounded-lg absolute z-[2]'></div>
+                <div class='wheel flex'></div>
+            </div>
+            <div>
+                <button id="girabtn"
+                    class="girar font-bold text-xl text-white bg-green-600 rounded-lg px-8 py-2 w-fit animate-zoom hover:bg-green-500 hover:scale-110 transition-all">
+                    GIRAR
+                </button>
+            </div>
+        </div>
+        <section class="px-4">
+            <article class="max-w-screen-sm bg-neutral-900 flex flex-col gap-4 border rounded-lg text-white py-2 px-2">
+                <h1 class="font-extrabold leading-6 text-xl">A PRIMEIRA ROLETA DO SBT ONDE VOCÊ GIRA E RESGATA O
+                    PRÊMIO
+                    SEM SAIR DE CASA!</h1>
+                <p>Como funciona?</p>
+                <p>A Roleta Premiada foi criada pelo Silvio Santos em 2009, e agora está disponível via internet
+                    pela
+                    equipe do SBT!</p>
+                <p>Cada giro custa <span class="font-bold">R$6,00</span> e você pode ganhar prêmios exclusivos e
+                    receber
+                    diretamente em casa.</p>
+            </article>
+        </section>
+        <section class="flex flex-col w-full px-4 overflow-x-hidden">
+            <h1 class="text-left text-2xl w-full font-semibold text-white"><i class="ph-duotone ph-gift"></i>
+                PRÊMIOS
+                DISPONÍVEIS:</h1>
+            <br>
+            <!-- CAROUSEL -->
+            <div id="carousel" class="flex gap-2 w-fit flex-wrap">
+                <div class="h-fit flex-1 flex flex-col gap-2 min-w-44 border rounded-xl p-3 text-left">
+                    <img src="./assets/imagens/iphone.webp" alt=""
+                        class="w-full object-cover aspect-square h-56 rounded-xl">
+                    <p class="text-white">Iphone 14 Pro 128gb</p>
+                </div>
+                <div class="h-fit flex-1 flex flex-col gap-2 min-w-44 border rounded-xl p-3 text-left">
+                    <img src="./assets/imagens/macbook.png" alt=""
+                        class="w-full object-cover aspect-square h-56 rounded-xl">
+                    <p class="text-white">Macbook Pro M1 512gb</p>
+                </div>
+                <div class="h-fit flex-1 flex flex-col gap-2 min-w-44 border rounded-xl p-3 text-left">
+                    <img src="./assets/imagens/fogao.jpeg" alt=""
+                        class="w-full object-cover aspect-square h-56 rounded-xl">
+                    <p class="text-white">Fogão Atlas 4 bocas</p>
+                </div>
+                <div class="h-fit flex-1 flex flex-col gap-2 min-w-44 border rounded-xl p-3 text-left">
+                    <img src="./assets/imagens/tb.webp" alt=""
+                        class="w-full object-cover aspect-square h-56 rounded-xl">
+                    <p class="text-white">LG Smart TV 44 Pol</p>
+                </div>
+                <div class="h-fit flex-1 flex flex-col gap-2 min-w-44 border rounded-xl p-3 text-left">
+                    <img src="./assets/imagens/cartao.webp" alt=""
+                        class="w-full object-cover aspect-square h-56 rounded-xl">
+                    <p class="text-white">Vale compras Americanas</p>
+                </div>
+            </div>
+        </section>
+        <br>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+        
+        const girabtn = document.getElementById("girabtn");
+        const modalFRETE = document.getElementById("modalFRETE");
+        let step = 1;
+        let outcome = 0
+        $(document).ready(function () {
+            //setup multiple rows of colours, can also add and remove while spinning but overall this is easier.
+            initWheel();
+
+            $('.girar').on('click', function () {
+                console.log(step);
+                if (step == 1) {
+                    outcome = 14
+                    step++
+                    console.log(outcome)
+                    return spinWheel(outcome);
+                }
+                if (step == 2) {
+                    outcome = 3
+                    step++
+                    console.log(outcome)
+                    return spinWheel(outcome);
+                }
+                if (step == 3) {
+                    outcome = 0
+                    step++
+                    console.log(outcome)
+                    girabtn.innerHTML = 'RESGATAR'
+                    return spinWheel(outcome);
+                }
+                if (step == 4) {
+                    return modalFRETE.classList.toggle('hidden')
+                }
+            });
+        });
+
+        function initWheel() {
+            var $wheel = $('.roulette-wrapper .wheel'),
+                row = "";
+
+            row += "<div class='row flex'>";
+
+            row += "  <div aria-index='1' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/cartao.webp'/><\/div>";
+            row += "  <div aria-index='14' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/cartao.webp'/><\/div>";
+            row += "  <div aria-index='2' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/fogao.jpeg'/><\/div>";
+            row += "  <div aria-index='13' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/iphone.webp'/><\/div>";
+            row += "  <div aria-index='3' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/tb.webp'/><\/div>";
+            row += "  <div aria-index='12' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/cartao.webp'/><\/div>";
+            row += "  <div aria-index='4' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/fogao.jpeg'/><\/div>";
+            row += "  <div aria-index='0' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/macbook.png'/><\/div>";
+            row += "  <div aria-index='11' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/cartao.webp'/><\/div>";
+            row += "  <div aria-index='5' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/fogao.jpeg'/><\/div>";
+            row += "  <div aria-index='10' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/iphone.webp'/><\/div>";
+            row += "  <div aria-index='6' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/tb.webp'/><\/div>";
+            row += "  <div aria-index='9' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/cartao.webp'/><\/div>";
+            row += "  <div aria-index='7' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/fogao.jpeg'/><\/div>";
+            row += "  <div aria-index='8' class='card w-[75px] h-[75px] m-[3px] rounded-lg border-[rgba(255,255,255,0.25)] flex items-center justify-center text-white text-[1.5em] bg-neutral-800 border-white border'><img class='w-[56px] rounded-md' src='./assets/imagens/iphone.webp'/><\/div>";
+            row += "<\/div>";
+
+            for (var x = 0; x < 29; x++) {
+                $wheel.append(row);
+            }
+        }
+
+
+    </script>
+    <script src="./assets/app.js"></script>
+</body>
+
+</html>
